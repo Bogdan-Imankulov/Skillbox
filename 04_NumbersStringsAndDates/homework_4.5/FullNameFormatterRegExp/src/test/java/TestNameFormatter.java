@@ -64,7 +64,7 @@ public class TestNameFormatter {
     launchApplication(
         collectTestInput("Иванов Иван Иванович"),
         collectTestOutput(
-            String.format("Фамилия: %s%nИмя: %s%nОтчество: %s", "Иванов", "Иван", "Иванович"))
+            String.format("Фамилия: %s\nИмя: %s\nОтчество: %s", "Иванов", "Иван", "Иванович"))
     );
   }
 
@@ -74,7 +74,7 @@ public class TestNameFormatter {
     launchApplication(
         collectTestInput("Салтыков-Щедрин Михаил Евграфович"),
         collectTestOutput(
-            String.format("Фамилия: %s%nИмя: %s%nОтчество: %s", "Салтыков-Щедрин", "Михаил",
+            String.format("Фамилия: %s\nИмя: %s\nОтчество: %s", "Салтыков-Щедрин", "Михаил",
                 "Евграфович"))
     );
   }
@@ -115,7 +115,7 @@ public class TestNameFormatter {
     }
 
     List<String> errLines = lines.stream()
-        .filter(line -> line.matches(".*(split|matches|Pattern|Matcher|replace).*"))
+        .filter(line -> line.matches(".*(split|matches|Pattern|Matcher).*"))
         .collect(Collectors.toList());
 
     assertFalse(errLines.isEmpty(),

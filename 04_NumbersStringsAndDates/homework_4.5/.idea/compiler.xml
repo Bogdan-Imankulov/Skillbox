@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="MaskingInformationReqExp" />
+        <module name="FullNameFormatterRegExp" />
+        <module name="PhoneCleaner" />
+        <module name="SplitText" />
+        <module name="TotalEarningsCalculatorReqExp" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FullNameFormatterRegExp" target="11" />
+      <module name="MaskingInformationReqExp" target="11" />
+      <module name="PhoneCleaner" target="11" />
+      <module name="SplitText" target="11" />
+      <module name="TotalEarningsCalculatorReqExp" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

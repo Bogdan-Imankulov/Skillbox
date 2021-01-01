@@ -18,9 +18,7 @@ public class TestSplitText {
   void splitText() throws URISyntaxException, IOException {
     String text = getText("InputText.txt", " ");
     String expectedResult = getText("Result.txt", System.lineSeparator());
-    String actualResult = Main.splitTextInToWords(text)
-            .replaceAll("\r", "")
-            .replaceAll("\n", System.lineSeparator());
+    String actualResult = Main.splitTextInToWords(text);
     assertEquals(expectedResult, actualResult);
   }
 

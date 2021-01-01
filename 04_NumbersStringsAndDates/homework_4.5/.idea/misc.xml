@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/FullNameFormatterRegExp/pom.xml" />
+        <option value="$PROJECT_DIR$/MaskingInformationReqExp/pom.xml" />
+        <option value="$PROJECT_DIR$/PhoneCleaner/pom.xml" />
+        <option value="$PROJECT_DIR$/SplitText/pom.xml" />
+        <option value="$PROJECT_DIR$/TotalEarningsCalculatorReqExp/pom.xml" />
+      </list>
+    </option>
+  </component>
+</project>

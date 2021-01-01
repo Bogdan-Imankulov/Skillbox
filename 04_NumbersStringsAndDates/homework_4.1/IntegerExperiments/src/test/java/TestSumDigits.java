@@ -13,13 +13,13 @@ public class TestSumDigits {
 
 
   @Test
-  @DisplayName("Передано положительноe число 12345")
+  @DisplayName("Передано положительно число 12345")
   void testPositiveNotZeroNumber() {
     assertEquals(15, Main.sumDigits(12345));
   }
 
   @Test
-  @DisplayName("Передано положительноe число 20000")
+  @DisplayName("Передано положительно число 20000")
   void testPositiveWithZeroNumber() {
     assertEquals(2, Main.sumDigits(20000));
   }

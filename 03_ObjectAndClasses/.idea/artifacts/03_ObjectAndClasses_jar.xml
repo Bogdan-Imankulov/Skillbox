@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="03_ObjectAndClasses:jar">
+    <output-path>$PROJECT_DIR$/out/</output-path>
+    <root id="archive" name="03_ObjectAndClasses.jar">
+      <element id="module-output" name="03_ObjectAndClasses" />
+    </root>
+  </artifact>
+</component>

@@ -65,7 +65,7 @@ public class TestNameFormatter {
     launchApplication(
         collectTestInput("Иванов Иван Иванович"),
         collectTestOutput(
-            String.format("Фамилия: %s%nИмя: %s%nОтчество: %s", "Иванов", "Иван", "Иванович"))
+            String.format("Фамилия: %s\nИмя: %s\nОтчество: %s", "Иванов", "Иван", "Иванович"))
     );
   }
 
@@ -75,7 +75,7 @@ public class TestNameFormatter {
     launchApplication(
         collectTestInput("Салтыков-Щедрин Михаил Евграфович"),
         collectTestOutput(
-            String.format("Фамилия: %s%nИмя: %s%nОтчество: %s", "Салтыков-Щедрин", "Михаил",
+            String.format("Фамилия: %s\nИмя: %s\nОтчество: %s", "Салтыков-Щедрин", "Михаил",
                 "Евграфович"))
     );
   }

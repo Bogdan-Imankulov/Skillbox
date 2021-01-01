@@ -26,7 +26,7 @@ public class TestEarningsCalculator {
     }
 
     List<String> errLines = lines.stream()
-        .filter(line -> line.matches(".*(split|matches|Pattern|Matcher|replace).*"))
+        .filter(line -> line.matches(".*(split|matches|Pattern|Matcher).*"))
         .collect(Collectors.toList());
 
     assertFalse(errLines.isEmpty(),
