@@ -1,5 +1,6 @@
 import core.Line;
 import core.Station;
+import org.apache.logging.log4j.LogManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,11 +15,12 @@ public class Main
 {
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
-
     private static StationIndex stationIndex;
+    private static org.apache.logging.log4j.Logger logger;
 
     public static void main(String[] args)
     {
+        logger = LogManager.getRootLogger();
         stationIndex = createStationIndex();
         RouteCalculator calculator = getRouteCalculator();
 
@@ -26,15 +28,20 @@ public class Main
         scanner = new Scanner(System.in);
         for(;;)
         {
-            Station from = takeStation("Введите станцию отправления:");
-            Station to = takeStation("Введите станцию назначения:");
+            try {
+                Station from = takeStation("Введите станцию отправления:");
+                Station to = takeStation("Введите станцию назначения:");
 
-            List<Station> route = calculator.getShortestRoute(from, to);
-            System.out.println("Маршрут:");
-            printRoute(route);
+                List<Station> route = calculator.getShortestRoute(from, to);
+                System.out.println("Маршрут:");
+                printRoute(route);
 
-            System.out.println("Длительность: " +
-                RouteCalculator.calculateDuration(route) + " минут");
+                System.out.println("Длительность: " +
+                        RouteCalculator.calculateDuration(route) + " минут");
+            }catch (Exception e){
+                logger.fatal(e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -63,16 +70,22 @@ public class Main
         }
     }
 
-    private static Station takeStation(String message)
+    private static Station takeStation(String message) throws IllegalArgumentException
     {
         for(;;)
         {
             System.out.println(message);
+
             String line = scanner.nextLine().trim();
-            Station station = stationIndex.getStation(line);
+            if (line.equalsIgnoreCase("break")){
+                throw new IllegalArgumentException(line);
+            }Station station = stationIndex.getStation(line);
+
             if(station != null) {
+                logger.info("Станция найдена - " + station.toString());
                 return station;
             }
+            logger.error("Станция не найдена - " + line);
             System.out.println("Станция не найдена :(");
         }
     }
