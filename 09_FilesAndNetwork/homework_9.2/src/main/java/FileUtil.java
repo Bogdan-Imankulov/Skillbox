@@ -1,5 +1,7 @@
 import java.io.File;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -12,12 +14,12 @@ public class FileUtil {
             Files.walk(src.toPath()).forEach(path -> {
                 try {
                     File file = path.toFile();
-                    File f1 = new File(Path.of(dst.getPath() + "/" + file.getName()).toString());
-                    Files.copy(file.toPath(), Path.of(f1.getAbsolutePath()),
+                    File copyOfFile = new File(Path.of(dst.getPath() + "/" + file.getName()).toString());
+                    Files.copy(file.toPath(), Path.of(copyOfFile.getAbsolutePath()),
                             REPLACE_EXISTING);
-                    if (f1.listFiles() == null || f1.listFiles().length == 0){
+                    if (copyOfFile.listFiles() == null || copyOfFile.listFiles().length == 0) {
                         copyFolder(src.getAbsolutePath() + "/" + file.getName(),
-                                f1.getAbsolutePath());
+                                copyOfFile.getAbsolutePath());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
