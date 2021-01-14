@@ -13,7 +13,8 @@ public class Main {
             System.out.println("Размер папки = " + (size * Math.pow(1024, 2)) + " МБайт");
         }
         else if (size < Math.pow(1024, 4)/2) {
-            System.out.println("Размер папки = " + (size * Math.pow(1024, 3)) + " ГБайт");
+            double red = Math.round((size * Math.pow(1024, 3))*Math.pow(10, 2)) / Math.pow(10, 2);
+            System.out.println("Размер папки = " + red + " ГБайт");
         }
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/09_FilesAndNetwork.iml" filepath="$PROJECT_DIR$/.idea/09_FilesAndNetwork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/homework_9.2/folder-copy.iml" filepath="$PROJECT_DIR$/homework_9.2/folder-copy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/homework_9.1/folder-size.iml" filepath="$PROJECT_DIR$/homework_9.1/folder-size.iml" />
+      <module fileurl="file://$PROJECT_DIR$/homework_9.3/read-movements-csv.iml" filepath="$PROJECT_DIR$/homework_9.3/read-movements-csv.iml" />
+    </modules>
+  </component>
+</project>
