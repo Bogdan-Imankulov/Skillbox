@@ -40,7 +40,7 @@ public class FolderCopyTest {
         List<Path> filesSourceDirectory = fillDirectoryWithEmptyFiles(sourceDirectory, 1);
         writeContent(filesSourceDirectory);
 
-        FileUtil.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
+        FileUtils.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
 
         assertPaths(filesSourceDirectory, sourceDirectory, destinationDirectory);
     }
@@ -54,7 +54,7 @@ public class FolderCopyTest {
         List<Path> filesSourceDirectory = fillDirectoryWithEmptyFiles(sourceDirectory);
         writeContent(filesSourceDirectory);
 
-        FileUtil.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
+        FileUtils.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
 
         assertPaths(filesSourceDirectory, sourceDirectory, destinationDirectory);
     }
@@ -76,7 +76,7 @@ public class FolderCopyTest {
                 .concat(filesSourceDirectory.stream(), filesSourceSubDirectory.stream())
                 .collect(Collectors.toList());
 
-        FileUtil.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
+        FileUtils.copyFolder(sourceDirectory.toString(), destinationDirectory.toString());
 
         assertPaths(allSourceFiles, sourceDirectory, destinationDirectory);
     }

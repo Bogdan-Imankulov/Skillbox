@@ -1,40 +1,44 @@
 package com.company;
 
+import java.text.DecimalFormat;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        final int PATIENT_COUNT = 30;
-        final float MIN_PATIENT_TEMPERATURE = 32.0f;
-        final float MAX_PATIENT_TEMPERATURE = 40.0f;
-        final float MIN_HEALTHY_PATIENT_TEMPERATURE = 32.6f;
-        final float MAX_HEALTHY_PATIENT_TEMPERATURE = 36.9f;
-        int healthyPatientCount = 0;
-        float[] temperature = new float[PATIENT_COUNT];
-        float averageTemperature = 0;
-        float f;
-        for (int i = 0; i < temperature.length; i++) {
-            temperature[i] = (float) (32 + 8 * Math.random());
-            System.out.println(temperature[i]);
-            averageTemperature = averageTemperature + temperature[i];
-            if (temperature[i] > MIN_HEALTHY_PATIENT_TEMPERATURE && temperature[i] < MAX_HEALTHY_PATIENT_TEMPERATURE) {
-                healthyPatientCount++;
-            }
+        // write your code here
+        final int COUNT_OF_PATIENT = 30;
+        final float MIN_HEALTHY_TEMPERATURE = 36.2f;
+        final float MAX_HEALTHY_TEMPERATURE = 36.9f;
+        final float MIN_TEMPERATURE_OF_PATIENT = 32f;
+        final float MAX_TEMPERATURE_OF_PATIENT = 40f;
+        float[] temperatureOfPatient = new float[COUNT_OF_PATIENT];
+        String temperaturePatient = "";
+        //в примере вывода указываются один, затем два знака после запятой, поэтому использую DecimalFormat
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        DecimalFormat decimalFormat1 = new DecimalFormat("#.##");
+        float average = 0; //средняя температура
+        int countHealthyTemperature = 0;// количество здоровых
+
+        for (int i = 0; i < temperatureOfPatient.length; i++) {
+            temperatureOfPatient[i] = (float) (32 + 8 * Math.random());// создаем температуру от 32 до 40 градусов
+            // проверяем температура в пределах нормы
+            if (temperatureOfPatient[i] < MAX_HEALTHY_TEMPERATURE && temperatureOfPatient[i] > MIN_HEALTHY_TEMPERATURE)
+                countHealthyTemperature++; // добавляем количесто здоровых
+            average = average + temperatureOfPatient[i]; //считаем общую температуру
+            // форматируем, чтобы было 1 знак при выводе числа
+            String formOfTemperature = decimalFormat.format(temperatureOfPatient[i]);
+            // все заносим в одну строку
+            temperaturePatient = temperaturePatient + formOfTemperature + " ";
+
         }
-        for (int i = 0; i < temperature.length; i++) {
-            for (int j = i+1; j < temperature.length; j++) {
-                if (temperature[j] < temperature[i]){
-                    f = temperature[i];
-                    temperature[i] = temperature[j];
-                    temperature[j] = f;
-                }
-            }
-        }
-        System.out.println("Lowest temperature is: " + temperature[0]);
-        System.out.println("Highest temperature is: " + temperature[temperature.length-1]);
-        averageTemperature = averageTemperature / temperature.length;
-        System.out.println("Average Temperature is: " + averageTemperature);
-        System.out.println("Healthy patient count is: " + healthyPatientCount);
+        // получаем среднее значение температуры
+        average = average / temperatureOfPatient.length;
+        // форматируе чтобы при выводе числа было 2 знака после запятой
+        String averageToString = decimalFormat1.format(average);
+        System.out.println("Температуры больных: " + temperaturePatient);
+        System.out.println("Средняя температура: " + averageToString);
+        System.out.println("Количество здоровых: " + countHealthyTemperature);
+
 
     }
 }

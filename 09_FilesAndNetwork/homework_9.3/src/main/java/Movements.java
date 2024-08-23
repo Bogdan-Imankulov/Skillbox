@@ -1,90 +1,87 @@
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Movements {
-    private String pathMovementCsv;
-    private double expenseSum = 0;
-    private double incomeSum = 0;
-    private String companyExpense;
+    ArrayList<BankStatement> bankStatementArrayList;
+    private String pathMovementsCsv;
+    private double expenseSum;
+    private double incomeSum;
+    private String dateFormat = "dd.MM.yy";
 
-    public Movements(String pathMovementCsv) {
-        this.pathMovementCsv = pathMovementCsv;
-        companyExpense = "";
-        setUp();
-    }
-
-    private void setUp() {
-        try {
-            boolean doesStartWithSlash = pathMovementCsv.startsWith("\\")
-                    || pathMovementCsv.startsWith("/");
-            if (doesStartWithSlash) {
-                pathMovementCsv = pathMovementCsv.substring(1);
-            }
-            Path pathToCSV = Path.of(pathMovementCsv/*.trim()*/);
-            List<String> list = Files.readAllLines(pathToCSV);
-            list.remove(0);
-            parseLines(list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void parseLines(List<String> list) {
-        list.forEach(line -> {
-            String[] strings;
-            try {
-                strings = line.split(",");
-                String[] normalStrings = new String[strings.length];
-                Arrays.fill(normalStrings, "0");
-                for (int i = 0; i < strings.length; i++) {
-                    String s = strings[i];
-                    if (s.contains("\"")) {
-                        s += "." + strings[i + 1];
-                        s = s.replaceAll("\"", "");
-                        normalStrings[i] = s;
-                        break;
-                    }
-                    normalStrings[i] = s;
-                }
-                Arrays.stream(normalStrings).forEach(string -> {
-                    if (!normalStrings[7].equalsIgnoreCase("0")) {
-                        String s = strings[5].split("\\s{2}")[strings[5].split("\\s{2}").length - 1].trim();
-                        companyExpense = s + "\t" + normalStrings[7] + " руб.\n";
-                    }
-                });
-                expenseSum += Double.parseDouble(normalStrings[7]);
-                incomeSum += Double.parseDouble(normalStrings[6]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+    public Movements(String pathMovementsCsv) {
+        this.pathMovementsCsv = pathMovementsCsv/*.substring(1)*/;
+        bankStatementArrayList = loadFromCSv();
+//        for (BankStatement line : bankStatementArrayList){
+//            incomeSum += line.getIncome();
+//            expenseSum += line.getExpense();
+        bankStatementArrayList.forEach(bankStatement -> {
+            incomeSum += bankStatement.getIncome();
+            expenseSum += bankStatement.getExpense();
         });
     }
 
+    public ArrayList<BankStatement> loadFromCSv() {
+        ArrayList<BankStatement> bankStatements = new ArrayList<>();
+        //этот if()для теста
+        if (pathMovementsCsv.startsWith("\\") || pathMovementsCsv.startsWith("/")) {
+            pathMovementsCsv = pathMovementsCsv.substring(1);
+        }
+        try {
+            // создаю список строк, считывая файл по ссылке полученную прои создании объекта
+            List<String> lines = Files.readAllLines(Paths.get(pathMovementsCsv));
+            // удаляю первую строку, потомучто там наииенования, дата, описание, приход, расход и т.д.
+            lines.remove(0);
+            //перебираю список строк по строкам
+            for (String line : lines) {
+                //каждую строку помещаю в массив, разделитель запятая
+                String[] elements = line.split(",");
+                //если елементов меньше 8
+                if (elements.length < 8) {
+                    System.out.println("Wrong line: " + line);
+                    continue;
+                }
+
+                //этот for() для обработки списка float, так как там запятые и двойные ковычки
+                for (int i = 0; i < elements.length ; i++) {
+                    //если встречает данный шаблон
+                    if (elements[i].matches("^\"\\d+")) {
+                        //к данному елемнту прибавляет точку и следующиц елемент, вместо 1500,5 будет 1500.5
+                        elements[i] += "." + elements[i + 1];
+                        //елемент i+1 в следующей итерации будет 5 при сложении дает ошибку, поэтому мы обнуляем его
+                        elements[i+1] = String.valueOf(0);
+                        elements[i] = elements[i].replaceAll("\"", "");
+                    }
+
+                }
+                // созданный объект BankStatement получает данные со строки
+                bankStatements.add(new BankStatement(elements[0], elements[1],
+                        elements[2], new SimpleDateFormat(dateFormat).parse(elements[3]), elements[4],
+                        elements[5], Double.parseDouble(elements[6]), Double.parseDouble(elements[7])));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return bankStatements;
+    }
 
     public double getExpenseSum() {
+
         return expenseSum;
     }
 
     public double getIncomeSum() {
+
         return incomeSum;
     }
-
-    @Override
-    public String toString() {
-        return "Сумма доходов: " +
-                incomeSum +
-                " руб\n" +
-                "Сумма расходов: " +
-                expenseSum +
-                " руб \n" +
-                getCompanyExpense();
-    }
-
-    public String getCompanyExpense() {
-        return companyExpense;
+    public String getDescriptionList(){
+        StringBuilder builder = new StringBuilder();
+        bankStatementArrayList.forEach(bankStatement -> {
+            builder.append(bankStatement + "\n");
+        });
+        return String.valueOf(builder);
     }
 }

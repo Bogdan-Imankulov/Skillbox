@@ -1,6 +1,7 @@
 import core.Line;
 import core.Station;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,40 +14,37 @@ import java.util.Scanner;
 
 public class Main
 {
+    private static Logger logger;
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
+
     private static StationIndex stationIndex;
-    private static org.apache.logging.log4j.Logger logger;
 
     public static void main(String[] args)
     {
-        logger = LogManager.getRootLogger();
-        stationIndex = createStationIndex();
         RouteCalculator calculator = getRouteCalculator();
+
+        logger = LogManager.getRootLogger();
 
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
         scanner = new Scanner(System.in);
         for(;;)
         {
-            try {
-                Station from = takeStation("Введите станцию отправления:");
-                Station to = takeStation("Введите станцию назначения:");
+            Station from = takeStation("Введите станцию отправления:");
+            Station to = takeStation("Введите станцию назначения:");
 
-                List<Station> route = calculator.getShortestRoute(from, to);
-                System.out.println("Маршрут:");
-                printRoute(route);
+            List<Station> route = calculator.getShortestRoute(from, to);
+            System.out.println("Маршрут:");
+            printRoute(route);
 
-                System.out.println("Длительность: " +
-                        RouteCalculator.calculateDuration(route) + " минут");
-            }catch (Exception e){
-                logger.fatal(e.getMessage());
-                e.printStackTrace();
-            }
+            System.out.println("Длительность: " +
+                RouteCalculator.calculateDuration(route) + " минут");
         }
     }
 
     private static RouteCalculator getRouteCalculator()
     {
+        createStationIndex();
         return new RouteCalculator(stationIndex);
     }
 
@@ -70,50 +68,46 @@ public class Main
         }
     }
 
-    private static Station takeStation(String message) throws IllegalArgumentException
+    private static Station takeStation(String message)
     {
         for(;;)
         {
             System.out.println(message);
-
             String line = scanner.nextLine().trim();
-            if (line.equalsIgnoreCase("break")){
-                throw new IllegalArgumentException(line);
-            }Station station = stationIndex.getStation(line);
-
+            Station station = stationIndex.getStation(line);
             if(station != null) {
-                logger.info("Станция найдена - " + station.toString());
+                logger.info("Есть такая станция -" + station.toString());
                 return station;
             }
-            logger.error("Станция не найдена - " + line);
+            logger.error("Нет такой станции -" + line);
             System.out.println("Станция не найдена :(");
         }
     }
 
-    public static StationIndex createStationIndex()
+    private static void createStationIndex()
     {
-        StationIndex stationIndex = new StationIndex();
+        stationIndex = new StationIndex();
         try
         {
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(getJsonFile());
 
             JSONArray linesArray = (JSONArray) jsonData.get("lines");
-            parseLines(linesArray, stationIndex);
+            parseLines(linesArray);
 
             JSONObject stationsObject = (JSONObject) jsonData.get("stations");
-            parseStations(stationsObject, stationIndex);
+            parseStations(stationsObject);
 
             JSONArray connectionsArray = (JSONArray) jsonData.get("connections");
-            parseConnections(connectionsArray, stationIndex);
+            parseConnections(connectionsArray);
         }
         catch(Exception ex) {
             ex.printStackTrace();
+            logger.fatal(ex.getMessage());
         }
-        return stationIndex;
     }
 
-    private static void parseConnections(JSONArray connectionsArray, StationIndex stationIndex)
+    private static void parseConnections(JSONArray connectionsArray)
     {
         connectionsArray.forEach(connectionObject ->
         {
@@ -137,7 +131,7 @@ public class Main
         });
     }
 
-    private static void parseStations(JSONObject stationsObject, StationIndex stationIndex)
+    private static void parseStations(JSONObject stationsObject)
     {
         stationsObject.keySet().forEach(lineNumberObject ->
         {
@@ -153,7 +147,7 @@ public class Main
         });
     }
 
-    private static void parseLines(JSONArray linesArray, StationIndex stationIndex)
+    private static void parseLines(JSONArray linesArray)
     {
         linesArray.forEach(lineObject -> {
             JSONObject lineJsonObject = (JSONObject) lineObject;
@@ -174,6 +168,7 @@ public class Main
         }
         catch (Exception ex) {
             ex.printStackTrace();
+            logger.fatal(ex.getMessage());
         }
         return builder.toString();
     }

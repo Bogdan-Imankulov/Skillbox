@@ -1,13 +1,13 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        FileUtil.copyFolder("../homework_9.1",
-                "src/src");
-        FileUtil.copyFolder("lib",
-                "src");
-        System.out.println(Files.exists(Path.of("src/lib/Fules")));
+        Scanner scanner = new Scanner(System.in);
+        String sourceDirectory = scanner.nextLine();
+        String destinationDirectory = scanner.nextLine();
+        FileUtils.copyFolder(sourceDirectory, destinationDirectory);
 
     }
 }

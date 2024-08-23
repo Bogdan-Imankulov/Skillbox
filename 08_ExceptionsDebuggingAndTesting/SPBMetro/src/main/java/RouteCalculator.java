@@ -28,6 +28,7 @@ public class RouteCalculator
         if(route != null) {
             return route;
         }
+
         route = getRouteWithTwoConnections(from, to);
         return route;
     }
@@ -112,9 +113,10 @@ public class RouteCalculator
                 }
             }
         }
+        //если не нашел connected то размер списка rout равен 0, после этого ищет two connection
         if (route.size() == 0){
             return null;
-        }
+    }
         return route;
     }
 

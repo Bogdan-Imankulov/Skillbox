@@ -1,15 +1,15 @@
 import java.sql.*;
 
 public class DataBaseConnection {
-    private String urlForConnection;
-    private String userName;
-    private String userPassword;
+    private static String urlForConnection = "jdbc:mysql://localhost:3306/skillbox";
+    private static String userName = "root";
+    private static String password = "asdf0FDSA";
     private Connection connection;
     private Statement statement;
 
-    public DataBaseConnection(String urlForConnection, String userName, String userPassword) {
+    public DataBaseConnection() {
         try {
-            connection = DriverManager.getConnection(urlForConnection, userName, userPassword);
+            connection = DriverManager.getConnection(urlForConnection, userName, password);
             statement = connection.createStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -26,28 +26,28 @@ public class DataBaseConnection {
         return resultSet;
     }
 
-    public String getUrlForConnection() {
+    public static String getUrlForConnection() {
         return urlForConnection;
     }
 
-    public void setUrlForConnection(String urlForConnection) {
-        this.urlForConnection = urlForConnection;
+    public static void setUrlForConnection(String urlForConnection) {
+        DataBaseConnection.urlForConnection = urlForConnection;
     }
 
-    public String getUserName() {
+    public static String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public static void setUserName(String userName) {
+        DataBaseConnection.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public static String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public static void setPassword(String password) {
+        DataBaseConnection.password = password;
     }
 
     public Connection getConnection() {

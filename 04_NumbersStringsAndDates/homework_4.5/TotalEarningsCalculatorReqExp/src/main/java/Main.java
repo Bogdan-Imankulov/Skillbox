@@ -1,23 +1,21 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Main {
 
   public static void main(String[] args) {
-    System.out.println(calculateSalarySum("Вася - 3000 рублей, Петя - 15686 рублей, А Маша заработала - 55715 рублей"));
+
   }
 
   public static int calculateSalarySum(String text){
     //TODO: реализуйте метод
-    String[] strArr = text.split("\\s+");
-    int totalSalary = 0;
-    for (int i = 0; i < strArr.length; i++)
-    {
-      if (Character.isDigit(strArr[i].charAt(0)))
+      int salary = 0;
+      String [] words = text.split("\\s+");
+      for (int i =0; i < words.length; i++)
       {
-        totalSalary = totalSalary + Integer.parseInt(strArr[i]);
+          if (Character.isDigit(words[i].charAt(0)))
+          {
+              salary = salary + Integer.parseInt(words[i]);
+          }
       }
-    }
-    return totalSalary;
+    return salary;
   }
+
 }

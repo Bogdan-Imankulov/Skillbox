@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring - main page</title>
+</head>
+<body>
+    <h1><i>This my ToDoList made with Spring MVC. Current tasks count = <span th:text = "${tasksCount}">0</span></i></h1>
+    <br><br>
+    <div th:each = "task : ${tasksList}">
+        <a href="#" th:attr = "data-id=${task.id}" th:text = "${task.name}"></a>
+    </div>
+</body>
+</html>

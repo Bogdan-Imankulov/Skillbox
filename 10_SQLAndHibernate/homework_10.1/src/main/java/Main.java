@@ -1,22 +1,22 @@
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        DataBaseConnection connection = new DataBaseConnection("jdbc:mysql://localhost:3306/skillbox",
-                "root", "asdf0FDSA");
-        ResultSet resultSet = connection.executeQuery("""
-                SELECT course_name, 
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ResultSet resultSet = dataBaseConnection
+                //выбираю имя курса, месяц последней покупки, кол-во покупок
+                //затем делю кол-во покупок на месяц последней покупки
+                //получая тем самым среднее кол-во покупок в месяц
+                .executeQuery(""" 
+                        SELECT course_name, 
                         EXTRACT(MONTH FROM MAX(PurchaseList.subscription_date)), 
                         COUNT(PurchaseList.subscription_date), 
                         COUNT(PurchaseList.subscription_date) / 
                         EXTRACT(MONTH FROM MAX(PurchaseList.subscription_date))
                         FROM PurchaseList 
                         GROUP BY course_name 
-                        ORDER BY subscription_date DESC
-                        """);
+                        ORDER BY subscription_date DESC""");
         try {
             while(resultSet.next()){
                 System.out.println("Course name: " + resultSet.getString(1) + ";  " +
@@ -25,6 +25,5 @@ public class Main {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 }

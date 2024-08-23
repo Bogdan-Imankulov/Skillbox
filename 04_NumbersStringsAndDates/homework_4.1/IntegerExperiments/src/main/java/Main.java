@@ -1,5 +1,3 @@
-//import picocli.CommandLine;
-
 import java.util.ArrayList;
 
 public class Main {
@@ -25,21 +23,30 @@ public class Main {
 
     public static int sumDigits(Integer number) {
         //@TODO: write code here and delete TODO line
-//      если нулл то ретурн -1
-        if (number == null) {
+        // если передали null возвращает -1
+        if (number == null)
             return -1;
-        }
-//      Нумбер переводим в стринг
+        //переводим Integer в String
         String numToStr = number.toString();
-//      Лист класса инт
-        ArrayList<Integer> numToList = new ArrayList<>();
-//      Сумма цифр числа
-        int sum = 0;
+//     создаем  ArrayList<Character> numToChar куда поместим все символы по порядку
+        ArrayList<Character> numToChar = new ArrayList<>();
+        //добавляем  elements
         for (int i = 0; i < numToStr.length(); i++) {
-            numToList.add(Integer.parseInt(String.valueOf(numToStr.charAt(i))));
-            sum = sum + numToList.get(i);
-
+            numToChar.add(numToStr.charAt(i));
         }
+        //создаем список Integer
+        ArrayList<Integer> numToInt = new ArrayList<>();
+        // добавляем туда элементые numToChar преобразовав в int при помощи метода parseInt()
+        for (int i = 0; i < numToChar.size(); i++) {
+            numToInt.add(Integer.parseInt(numToChar.get(i).toString()));
+        }
+        // суммируем
+        int sum = 0;
+        for (int i = 0; i < numToInt.size(); i++) {
+            sum = sum + numToInt.get(i);
+        }
+
         return sum;
     }
+
 }

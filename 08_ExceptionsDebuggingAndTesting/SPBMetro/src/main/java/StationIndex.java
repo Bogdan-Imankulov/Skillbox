@@ -29,9 +29,6 @@ public class StationIndex
 
     public void addConnection(List<Station> stations)
     {
-//        TreeMap<Station, TreeSet<Station>> connections;
-//        Если станция не присутствует в качестве ключа, то добавляем в connections
-//        станцию, как ключ и
         for(Station station : stations)
         {
             if(!connections.containsKey(station)) {

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="mainPackage.MainForm">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="6e9eb" binding="buttonPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="9b52f" class="javax.swing.JButton" binding="collapse">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <actionCommand value="Collapse"/>
+              <hideActionText value="false"/>
+              <label value="Collapse"/>
+              <maximumSize width="40" height="30"/>
+              <minimumSize width="40" height="30"/>
+              <preferredSize width="40" height="40"/>
+              <text value="Collapse"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="false"/>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+        </children>
+      </grid>
+      <grid id="15559" binding="textPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="empty">
+          <size top="10" left="0" bottom="10" right="0"/>
+        </border>
+        <children>
+          <grid id="f5fdd" binding="inputPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="330" height="40"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-10921639"/>
+            </properties>
+            <border type="empty">
+              <size top="0" left="0" bottom="7" right="0"/>
+            </border>
+            <children>
+              <component id="9d315" class="javax.swing.JTextField" binding="firstNameField">
+                <constraints/>
+                <properties>
+                  <preferredSize width="75" height="37"/>
+                  <toolTipText value="Input Your First Name"/>
+                </properties>
+              </component>
+              <component id="70f83" class="javax.swing.JTextField" binding="secondNameField">
+                <constraints/>
+                <properties>
+                  <preferredSize width="75" height="37"/>
+                  <toolTipText value="Input Your Second Name"/>
+                </properties>
+              </component>
+              <component id="c29cb" class="javax.swing.JTextField" binding="thirdNameField">
+                <constraints/>
+                <properties>
+                  <preferredSize width="75" height="37"/>
+                  <toolTipText value="Input Your Third Name"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="7f384">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="c72dd" binding="outputPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="400" height="200"/>
+                <preferred-size width="400" height="200"/>
+                <maximum-size width="400" height="200"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11447983"/>
+            </properties>
+            <border type="empty">
+              <size top="10" left="10" bottom="10" right="10"/>
+            </border>
+            <children>
+              <component id="6a7ec" class="javax.swing.JTextField" binding="showTextField">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <editable value="false"/>
+                  <enabled value="true"/>
+                  <minimumSize width="400" height="200"/>
+                  <preferredSize width="400" height="200"/>
+                  <text value=""/>
+                  <toolTipText value="Here will be your First and Second names"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
